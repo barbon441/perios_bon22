@@ -9,7 +9,7 @@ const HomePage = () => {
   const [cycleDates, setCycleDates] = useState([]);
   const [predictedDates, setPredictedDates] = useState([]);
   const [dailySymptoms, setDailySymptoms] = useState({});
-  const [showSymptomForm, setShowSymptomForm] = useState(false);
+  const [showSymptomForm, setShowSymptomForm] = useState(false); // ฟอร์มบันทึกอาการ
   const [showPopup, setShowPopup] = useState(false);
   const [selectedSymptoms, setSelectedSymptoms] = useState({ flow: '', mood: [], symptoms: [] });
   const [currentDayOfPeriod, setCurrentDayOfPeriod] = useState(1);
@@ -127,9 +127,9 @@ const HomePage = () => {
     setIsSaved(false);
   };
 
-  // ฟังก์ชันเปิดฟอร์มบันทึกอาการ
+  // ฟังก์ชันเปิดและปิดฟอร์มบันทึกอาการ (toggle)
   const handleLogSymptoms = () => {
-    setShowSymptomForm(true);
+    setShowSymptomForm(!showSymptomForm); // เปลี่ยนสถานะจากเปิดเป็นปิด และจากปิดเป็นเปิด
   };
 
   const handleSymptomChange = (e) => {
@@ -144,7 +144,7 @@ const HomePage = () => {
 
   const handleSaveSymptoms = () => {
     setDailySymptoms({ ...dailySymptoms, [selectedDate]: selectedSymptoms });
-    setShowSymptomForm(false);
+    setShowSymptomForm(false); // ปิดฟอร์มหลังบันทึก
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 2000);
   };
@@ -221,7 +221,7 @@ const HomePage = () => {
       {/* ปุ่มรีเซ็ต */}
       <div className="reset-button-container">
         <button onClick={handleReset} className="bg-gray-500 text-white py-1 px-3 rounded-full text-sm ml-2">
-          รีเซ็ตข้อมูลทั้งหมด
+          รีเซ็ตข้อมูล
         </button>
       </div>
 
@@ -230,11 +230,12 @@ const HomePage = () => {
         <div className="insights-grid">
           <div className="insight-card">
             <div>บันทึกอาการของคุณ</div>
-            <div className="add-symptom-button" onClick={handleLogSymptoms}>+</div>
+            <div className="add-symptom-button" onClick={handleLogSymptoms}>+</div> {/* ปุ่มบวก */}
           </div>
         </div>
       </div>
 
+      {/* ฟอร์มบันทึกอาการ */}
       {showSymptomForm && (
         <SymptomForm
           selectedSymptoms={selectedSymptoms}
