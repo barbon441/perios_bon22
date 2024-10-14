@@ -20,6 +20,14 @@ const HomePage = () => {
   const handleDateChange = (newDate) => {
     setSelectedDate(newDate);
 
+    // ถ้าวันที่เลือกมีข้อมูลอาการ ให้โหลดข้อมูลอาการจาก dailySymptoms
+    if (dailySymptoms[newDate]) {
+      setSelectedSymptoms(dailySymptoms[newDate]);
+    } else {
+      // ถ้าไม่มีข้อมูลอาการ ให้รีเซ็ตเป็นค่าเริ่มต้น
+      setSelectedSymptoms({ flow: '', mood: [], symptoms: [] });
+    }
+
     const existingIndex = cycleDates.findIndex(
       (loggedDate) => loggedDate.getTime() === newDate.getTime()
     );
@@ -33,7 +41,9 @@ const HomePage = () => {
   };
 
   // ฟังก์ชันตรวจสอบว่าวันที่ที่เลือกเป็นวันที่ประจำเดือนหรือไม่
-  const isPeriodDay = predictedDates.some(predictedDate => predictedDate.toDateString() === selectedDate.toDateString());
+  const isPeriodDay = () => {
+    return predictedDates.some(predictedDate => predictedDate.toDateString() === selectedDate.toDateString());
+  };
 
   // ฟังก์ชันสำหรับบันทึกวันที่ที่เลือก
   const handleLogCycle = (date) => {
@@ -117,7 +127,10 @@ const HomePage = () => {
     setIsSaved(false);
   };
 
-  const handleLogSymptoms = () => setShowSymptomForm(true);
+  // ฟังก์ชันเปิดฟอร์มบันทึกอาการ
+  const handleLogSymptoms = () => {
+    setShowSymptomForm(true);
+  };
 
   const handleSymptomChange = (e) => {
     const { name, value, checked } = e.target;
@@ -162,12 +175,12 @@ const HomePage = () => {
           </>
         ) : (
           <>
-            {nextPeriodDate && !isPeriodDay && (
+            {nextPeriodDate && !isPeriodDay() && (
               <div className="period-info-days">
                 ประจำเดือนจะมาอีกครั้งในวันที่ {formatThaiDate(nextPeriodDate)}
               </div>
             )}
-            {nextPeriodDate && !isPeriodDay && (
+            {nextPeriodDate && !isPeriodDay() && (
               <div className="period-info-days">
                 ครั้งถัดไปจะมาอีกใน {calculateDaysUntilNextPeriod()} วัน
               </div>
