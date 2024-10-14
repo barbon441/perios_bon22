@@ -21,12 +21,13 @@ const Calendar = ({ selectedDate, handleDateChange, loggedDates = [], predictedD
         const day = index + 1;
         const isLogged = loggedDates.some(loggedDate => loggedDate.getDate() === day);
         const isPredicted = predictedDates.some(predictedDate => predictedDate.getDate() === day);
+        const isSelected = day === selectedDay;  // เช็ควันถูกเลือก
 
         return (
           <div
             key={day}
             className={`calendar-day 
-              ${day === selectedDay ? 'selected' : ''} 
+              ${isSelected ? 'selected-day' : ''} 
               ${isLogged ? 'circle-logged' : ''} 
               ${isPredicted && !isLogged ? 'circle-predicted' : ''}`}
             onClick={() => onDateClick(day)}
@@ -38,5 +39,6 @@ const Calendar = ({ selectedDate, handleDateChange, loggedDates = [], predictedD
     </div>
   );
 };
+
 
 export default Calendar;

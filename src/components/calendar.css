@@ -32,3 +32,11 @@
   font-weight: bold;
   z-index: 3; /* ให้ตัวเลขอยู่ด้านบนสุด */
 }
+.selected-day {
+  background-color: #d3d3d3 !important; /* ใช้ !important เพื่อบังคับให้เป็นสีเทาอ่อน */
+  color: black !important; /* ให้สีตัวเลขเป็นสีดำ */
+  border-radius: 50%;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+

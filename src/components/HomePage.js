@@ -190,7 +190,14 @@ const HomePage = () => {
       </div>
 
       {/* ปฏิทินแสดงวันที่ */}
-      <h3 className="calendar-title">ปฏิทินรอบเดือน</h3>
+      <div className="header-with-reset">
+        <h3 className="calendar-title">ปฏิทินรอบเดือน</h3>
+        <div className="reset-button-container">
+          <button onClick={handleReset} className="bg-gray-500 text-white py-1 px-3 rounded-full text-sm ml-2">
+            รีเซ็ตข้อมูล
+          </button>
+        </div>
+      </div>
       <div className="calendar-container">
         <Calendar 
           selectedDate={selectedDate} 
@@ -217,13 +224,6 @@ const HomePage = () => {
           </button>
         </div>
       )}
-
-      {/* ปุ่มรีเซ็ต */}
-      <div className="reset-button-container">
-        <button onClick={handleReset} className="bg-gray-500 text-white py-1 px-3 rounded-full text-sm ml-2">
-          รีเซ็ตข้อมูล
-        </button>
-      </div>
 
       <div className="daily-insights-container">
         <div className="daily-insights-title">ข้อมูลเชิงลึกประจำวันของฉัน - {selectedDate.toLocaleDateString('th-TH')}</div>
